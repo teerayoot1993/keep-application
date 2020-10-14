@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://ntee1993:123411@cluster0.hmwfd.gcp.mongodb.net/keep_app?retryWrites=true&w=majority",
+  "jwtSecret": "sl_myJwtSecret"
+}

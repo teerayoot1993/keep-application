@@ -1,0 +1,53 @@
+.remove-btn {
+  margin-right: 0.7rem;
+}
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 1000ms ease-in;
+}
+
+/********************************  NAV BAR  **********************************/
+.navbar {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif !important;
+
+  .navbar-brand {
+    font-size: 2.5rem !important;
+  }
+}
+.nav-item {
+  font-size: 1.2rem !important;
+  background: #7bc143 !important;
+}
+.custom-navbar {
+  background: #7bc143 !important;
+  color: #ffffff !important;
+}
+/*******************************************************************************/
+
+#outlined-basic {
+  width: 300px !important;
+  height: 15px !important;
+}
+#outlined-password-input {
+  width: 300px !important;
+  height: 15px !important;
+}
+.login-btn {
+  width: 100% !important;
+  color: #ffffff !important;
+}
