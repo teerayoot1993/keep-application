@@ -22,6 +22,17 @@ const init = {
 const TodoList = ({ addTodo, getTodos, deleteTodo, todo }) => {
   const [state, setState] = useState(init);
 
+  const [search, setSearch] = useState("");
+  let searchTodo = todo.todos.filter((item) => {
+    return item.name.indexOf(search) !== -1;
+  });
+
+  const updateSearch = (e) => {
+    setSearch(e.target.value.substr(0, 20));
+    console.log(search);
+    console.log(searchTodo);
+  };
+
   const onChange = (e) => {
     setState({
       ...state,
@@ -51,6 +62,18 @@ const TodoList = ({ addTodo, getTodos, deleteTodo, todo }) => {
   return (
     <Container>
       <ListGroup>
+        <Form>
+          <FormGroup>
+            <Label for="item">Search Todo Item</Label>
+            <Input
+              type="text"
+              name="search"
+              id="search"
+              placeholder="Search todo item"
+              onChange={updateSearch}
+            />
+          </FormGroup>
+        </Form>
         <Form onSubmit={onSubmit}>
           <FormGroup>
             <Label for="item">New Todo Item</Label>
@@ -69,7 +92,7 @@ const TodoList = ({ addTodo, getTodos, deleteTodo, todo }) => {
           </FormGroup>
         </Form>
         <TransitionGroup className="shopping-list">
-          {todo.todos.map(({ _id, name }) => (
+          {searchTodo.map(({ _id, name }) => (
             <CSSTransition key={_id} timeout={500} classNames="fade">
               <ListGroupItem>
                 <Button
