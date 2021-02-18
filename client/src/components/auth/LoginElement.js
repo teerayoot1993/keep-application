@@ -18,7 +18,8 @@ const theme = createMuiTheme({
 const init = {
   email: "",
   password: "",
-  msg: null
+  msg: null,
+  btn: false
 };
 
 const LoginElement = ({ isAuthenticated, error, login, clearErrors }) => {
@@ -29,20 +30,27 @@ const LoginElement = ({ isAuthenticated, error, login, clearErrors }) => {
     if (error.id === "LOGIN_FAIL") {
       setState({
         ...state,
-        msg: error.msg.msg
+        msg: error.msg.msg,
+        btn: false
       });
     } else {
       setState({
         ...state,
-        msg: null
+        msg: null,
+        btn: false
       });
     }
   }, [error]);
 
+  useEffect(() => {
+    clearErrors();
+  }, [isAuthenticated]);
+
   const onChange = (e) => {
     setState({
       ...state,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
+      msg: null
     });
   };
 
@@ -57,14 +65,21 @@ const LoginElement = ({ isAuthenticated, error, login, clearErrors }) => {
     };
 
     login(user);
-    clearErrors();
+    setState({
+      ...state,
+      btn: true
+    });
   };
   return (
     <Fragment>
       <form className="mt-5" onSubmit={onSubmit}>
         <h1 align="center">KEEP Application</h1>
         <br></br>
-        {state.msg ? <Alert color="danger">{state.msg}</Alert> : null}
+        {state.msg ? (
+          <Alert color="danger">{state.msg}</Alert>
+        ) : (
+          <Alert style={{ opacity: "0" }}></Alert>
+        )}
         <ThemeProvider theme={theme}>
           <div className="mb-3">
             <TextField
@@ -93,6 +108,7 @@ const LoginElement = ({ isAuthenticated, error, login, clearErrors }) => {
               className="login-btn"
               variant="contained"
               color="primary"
+              disabled={state.btn}
             >
               <strong>LOG IN</strong>
             </Button>

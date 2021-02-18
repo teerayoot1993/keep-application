@@ -21,7 +21,8 @@ const init = {
   name: "",
   email: "",
   password: "",
-  msg: null
+  msg: null,
+  btn: false
 };
 
 const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
@@ -32,12 +33,14 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
     if (error.id === "REGISTER_FAIL") {
       setState({
         ...state,
-        msg: error.msg.msg
+        msg: error.msg.msg,
+        btn: false
       });
     } else {
       setState({
         ...state,
-        msg: null
+        msg: null,
+        btn: false
       });
     }
   }, [error]);
@@ -60,7 +63,8 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
       name: "",
       email: "",
       password: "",
-      msg: null
+      msg: null,
+      btn: false
     });
   };
 
@@ -85,6 +89,10 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
 
     // Attemp to register
     register(newUser);
+    setState({
+      ...state,
+      btn: true
+    });
   };
 
   return (
@@ -137,6 +145,7 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
               <Button
                 color="dark"
                 style={{ background: "#7bc143", marginTop: "2rem" }}
+                disabled={state.btn}
                 block
               >
                 Register

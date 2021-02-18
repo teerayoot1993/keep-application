@@ -28,9 +28,8 @@ const TodoList = ({ addTodo, getTodos, deleteTodo, todo }) => {
   });
 
   const updateSearch = (e) => {
-    setSearch(e.target.value.substr(0, 20));
-    console.log(search);
-    console.log(searchTodo);
+    let str = e.target.value
+    setSearch(str.substr(0, str.length - 1));
   };
 
   const onChange = (e) => {
