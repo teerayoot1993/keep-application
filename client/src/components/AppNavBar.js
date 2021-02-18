@@ -6,32 +6,39 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  Container,
-  NavLink,
+  Container
 } from "reactstrap";
-import RegisterModal from './auth/RegisterModal'
+import RegisterModal from "./auth/RegisterModal";
+import Logout from "./auth/Logout";
 
-const AppNavBar = () => {
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
+const AppNavBar = ({ auth }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
+
+  const { isAuthenticated, user } = auth;
 
   const authContent = (
     <Fragment>
       <NavItem>
         <span className="navbar-text mr-5">
-          <strong>Welcome User</strong>
+          <strong>{user ? `Welcome ${user.name}` : ""}</strong>
         </span>
       </NavItem>
       <NavItem>
-        <NavLink href="#">Logout</NavLink>
+        <Logout />
       </NavItem>
     </Fragment>
   );
 
   const guestContent = (
     <Fragment>
-      <NavItem><RegisterModal /></NavItem>
+      <NavItem>
+        <RegisterModal />
+      </NavItem>
     </Fragment>
   );
 
@@ -43,7 +50,7 @@ const AppNavBar = () => {
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              {guestContent}
+              {isAuthenticated ? authContent : guestContent}
             </Nav>
           </Collapse>
         </Container>
@@ -52,4 +59,12 @@ const AppNavBar = () => {
   );
 };
 
-export default AppNavBar;
+AppNavBar.propTypes = {
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, null)(AppNavBar);

@@ -9,12 +9,12 @@ import {
   FormGroup,
   Label,
   Input,
-  Alert,
+  Alert
 } from "reactstrap";
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { register } from '../../actions/authActions'
-import { clearErrors } from '../../actions/errorActions'
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { register } from "../../actions/authActions";
+import { clearErrors } from "../../actions/errorActions";
 
 const init = {
   modal: false,
@@ -29,31 +29,31 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
 
   useEffect(() => {
     // Check for register error
-    if (error.id === 'REGISTER_FAIL') {
+    if (error.id === "REGISTER_FAIL") {
       setState({
-      ...state,
-      msg: error.msg.msg
-      })
+        ...state,
+        msg: error.msg.msg
+      });
     } else {
       setState({
         ...state,
         msg: null
-      })
-    }    
-  }, [error])
+      });
+    }
+  }, [error]);
 
   useEffect(() => {
     // If authenticated, close modal
     if (state.modal) {
       if (isAuthenticated) {
-        toggle()
+        toggle();
       }
     }
-  })
+  });
 
   const toggle = () => {
     // Clear errors
-    clearErrors()
+    clearErrors();
     setState({
       ...state,
       modal: !state.modal,
@@ -61,31 +61,31 @@ const RegisterModal = ({ isAuthenticated, error, register, clearErrors }) => {
       email: "",
       password: "",
       msg: null
-    })
+    });
   };
 
   const onChange = (e) => {
     setState({
       ...state,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
   const onSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const { name, email, password } = state
+    const { name, email, password } = state;
 
     // Create user object
     const newUser = {
       name,
       email,
       password
-    }
+    };
 
     // Attemp to register
-    register(newUser)
-  }
+    register(newUser);
+  };
 
   return (
     <div>
@@ -154,16 +154,14 @@ RegisterModal.propTypes = {
   error: PropTypes.object.isRequired,
   register: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired
-}
+};
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   error: state.error
-})
+});
 
 export default connect(mapStateToProps, {
   register,
   clearErrors
-})(
-  RegisterModal
-);
+})(RegisterModal);
